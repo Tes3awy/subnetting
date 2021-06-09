@@ -38,7 +38,7 @@ $ pip install -r requirements.txt --user
 
 **OR**
 
-1. Download from [Releases]().
+1. Download from [Releases](https://github.com/Tes3awy/subnetting/releases/tag/v1.0).
 2. `cd` into `subnetting` directory.
 3. Run `path_to\subnetting> pip install -r requirements.txt --user` in terminal.
 
