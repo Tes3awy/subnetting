@@ -1,4 +1,9 @@
-# A Subnet Calculator in Python3
+[![Tested on Python 3.9.5](https://img.shields.io/badge/Tested%20-Python%203.9.5-blue.svg?logo=python)](https://www.python.org/downloads)
+[![Code Size](https://img.shields.io/github/languages/code-size/Tes3awy/subnetting?color=green)](https://github.com/Tes3awy/subnetting)
+[![License](https://img.shields.io/github/license/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+# IPv4 Subnet Calculator in Python3
 
 ## Table of Contents
 
