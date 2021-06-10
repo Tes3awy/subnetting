@@ -6,7 +6,11 @@ import xlsxwriter
 from termcolor import cprint
 
 
-def export_subnets(subnets: list[dict], workbook_name: str, worksheet_name: str):
+def export_subnets(
+    subnets: list[dict],
+    workbook_name: str = "Ip-Schema",
+    worksheet_name: str = "IP Schema",
+):
     """Export an Excel file of entered subnets
 
     Args:
@@ -108,4 +112,4 @@ def export_subnets(subnets: list[dict], workbook_name: str, worksheet_name: str)
                 row += 1
         except TypeError as e:
             raise SystemExit(cprint(e, "red"))
-    cprint(f"\nPlease check {excel_file_name} in current working directory.", "green")
+    cprint(f"\nPlease check {excel_file_name} in current working directory.\n", "green")

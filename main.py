@@ -11,7 +11,7 @@ init(autoreset=True)
 def main():
     # Take inputs from the user
     input_subnets = input(
-        "\nEnter network subnet(s) in CIDR Notation (comma-seperated): "
+        "\n- Enter network subnet(s) in CIDR Notation (comma-seperated): "
     )
     workbook_name = (
         input("- Name of Excel file w/o file extension? [Default IP-Schema]: ")
