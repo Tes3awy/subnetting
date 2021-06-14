@@ -61,13 +61,13 @@ $ python3 main.py
 You will be prompted to enter _comma-seperated_ network subnet(s) in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) representation:
 
 ```bash
-- Enter network subnet(s) in CIDR Notation (comma-seperated): 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
+- Enter network subnet(s) in CIDR Notation (comma-seperated) [Required]: 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
 ```
 
 Then, you will be prompted to enter a name for the Excel file and the sheet within the Excel file that will hold all subnetting data _(Both have default values)_:
 
 ```bash
-- Enter network subnet(s) in CIDR Notation (comma-seperated): 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
+- Enter network subnet(s) in CIDR Notation (comma-seperated) [Required]: 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
 - Name of Excel file w/o file extension? [Default IP-Schema.xlsx]:
 - Worksheet name? [Default IP Schema Worksheet]:
 ```
