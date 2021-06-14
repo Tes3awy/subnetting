@@ -14,15 +14,17 @@ def main():
         "\n- Enter network subnet(s) in CIDR Notation (comma-seperated): "
     )
     workbook_name = (
-        input("- Name of Excel file w/o file extension? [Default IP-Schema]: ")
+        input("- Name of Excel file w/o file extension? [Default IP-Schema.xlsx]: ")
         or "IP-Schema"
     )
-    worksheet_name = input("- Worksheet name? [Default IP Schema]: ") or "IP Schema"
+    worksheet_name = (
+        input("- Worksheet name? [Default IP Schema]: ") or "IP Schema Worksheet"
+    )
 
     # Do Subnetting
     network_subnets = subnetting(input_subnets)
 
-    # Export subnets to an Excel file
+    # Export subnetting results to an Excel file
     export_subnets(network_subnets, workbook_name, worksheet_name)
 
     print("Done")

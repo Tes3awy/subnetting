@@ -39,7 +39,7 @@ def subnetting(input_subnets: list) -> list[dict]:
             subnet_mask = str(cidr_notation.netmask).split(".")
             wildcard_mask = []
             for octet in subnet_mask:
-                octet_value = abs(int(octet) - 255)
+                octet_value = 255 - int(octet)
                 wildcard_mask.append(octet_value)
 
             wildcard_mask = ".".join(map(str, wildcard_mask))

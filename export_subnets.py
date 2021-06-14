@@ -1,5 +1,6 @@
 #!usr/bin/env python3
 
+import datetime
 from uuid import uuid4
 
 import xlsxwriter
@@ -8,8 +9,8 @@ from termcolor import cprint
 
 def export_subnets(
     subnets: list[dict],
-    workbook_name: str = "Ip-Schema",
-    worksheet_name: str = "IP Schema",
+    workbook_name: str = "IP-Schema",
+    worksheet_name: str = "IP Schema Worksheet",
 ):
     """Export an Excel file of entered subnets
 
@@ -21,9 +22,9 @@ def export_subnets(
     Raises:
         SystemExit: TypeError
     """
-
+    today = datetime.date()
     # Add a random UUID to the excel file name
-    excel_file_name = f"{workbook_name}-{uuid4()}.xlsx"
+    excel_file_name = f"{workbook_name}-{uuid4()}_{today}.xlsx"
 
     # Create an Excel file
     with xlsxwriter.Workbook(excel_file_name) as workbook:
@@ -47,6 +48,7 @@ def export_subnets(
             "K1": "Max. No. of Usable Hosts",
         }
 
+        # Header line format
         header_line_format = workbook.add_format(
             {
                 "bold": True,
