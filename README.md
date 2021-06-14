@@ -10,7 +10,7 @@
 1. [Getting Started](#getting-started)
 2. [Installation](#installation)
 3. [How it works?](#how-it-works)
-4. [Preview](#preview)
+4. [Previews](#previews)
 
 ### Getting Started
 
@@ -61,27 +61,31 @@ $ python3 main.py
 You will be prompted to enter _comma-seperated_ network subnet(s) in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) representation:
 
 ```bash
-Enter network subnet(s) in CIDR Notation (comma-seperated): 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
+- Enter network subnet(s) in CIDR Notation (comma-seperated): 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
 ```
 
-Then you will be prompted to enter a name for the Excel file and the sheet within the Excel file that will hold all subnetting data:
+Then, you will be prompted to enter a name for the Excel file and the sheet within the Excel file that will hold all subnetting data _(Both have default values)_:
 
 ```bash
-Enter network subnet(s) in CIDR Notation (comma-seperated): 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
-Name of Excel file w/o file extension? [Default IP-Schema]:
-Worksheet name? [Default IP Schema]:
+- Enter network subnet(s) in CIDR Notation (comma-seperated): 10.0.0.0/8, 172.16.0.0/16, 192.168.1.0/24
+- Name of Excel file w/o file extension? [Default IP-Schema.xlsx]:
+- Worksheet name? [Default IP Schema Worksheet]:
 ```
 
-> w/o: Without
+> Abbreviations <br /> **w/o: Without**
 
 Voila :sparkles: You have an Excel file that includes all required data about each subnet.
 
 ```bash
-Please check IP-Schema-6576ae0f-3e3a-47b5-bb25-ed9f45f813f7.xlsx in current working directory.
+Please check IP-Schema-<EIGHT_CHARS_HASH>_<TODAYS_DATE>.xlsx in current working directory.
 ```
 
 ---
 
-### Preview
+### Previews
 
-![Preview](assets/preview.png)
+**Terminal**
+![Python CLI](assets/subnetting-cli.png)
+
+**Excel File**
+![Excel Preview](assets/preview.png)
