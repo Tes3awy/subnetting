@@ -64,6 +64,7 @@ def subnetting(input_subnets: list) -> list[dict]:
             network_details["wildcard"] = wildcard_mask
             network_details["num_hosts"] = len(hosts)
 
+            # Add network details to network details
             result.append(network_details)
 
         return result

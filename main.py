@@ -20,7 +20,8 @@ def main():
             or "IP-Schema"
         )
         worksheet_name = (
-            input("- Worksheet name? [Default IP Schema]: ") or "IP Schema Worksheet"
+            input("- Worksheet name? [Default IP Schema Worksheet]: ")
+            or "IP Schema Worksheet"
         )
     except KeyboardInterrupt:
         raise SystemExit(cprint("\nProcess interrupted by the user!", "yellow"))

@@ -22,9 +22,11 @@ def export_subnets(
     Raises:
         SystemExit: TypeError
     """
-    today = datetime.date()
+
+    # Today's date
+    today = datetime.date.today()
     # Add a random UUID to the excel file name
-    excel_file_name = f"{workbook_name}-{uuid4()[:13]}_{today}.xlsx"
+    excel_file_name = f"{workbook_name}-{str(uuid4())[:8]}_{today}.xlsx"
 
     # Create an Excel file
     with xlsxwriter.Workbook(excel_file_name) as workbook:
@@ -86,7 +88,7 @@ def export_subnets(
         col = 0
 
         try:
-            # Place data according to header line above
+            # Place subnetting data according to header line above
             for net_subnet in subnets:
                 worksheet.write(row, col + 0, "", cell_format)
                 worksheet.write(row, col + 1, "", cell_format)
@@ -112,6 +114,7 @@ def export_subnets(
                     worksheet.write(row, col + 10, net_subnet["num_hosts"], cell_format)
                 # Jump to next row
                 row += 1
+
         except TypeError as e:
             raise SystemExit(cprint(e, "red"))
     cprint(f"\nPlease check {excel_file_name} in current working directory.\n", "green")
