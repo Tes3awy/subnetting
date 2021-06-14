@@ -2,27 +2,28 @@
 
 import ipaddress
 from ipaddress import AddressValueError, NetmaskValueError
+from typing import Iterator
 
 from termcolor import cprint
 
 
-def subnetting(input_subnets: list) -> list[dict]:
+def subnetting(input_subnets: str) -> Iterator[list[dict]]:
     """Does subnetting on each value entered by the user
 
     Args:
-        input_subnets (list): Subnets entered by the user
+        input_subnets (str): Subnets entered by the user
 
     Raises:
         SystemExit: AddressValueError
         SystemExit: NetmaskValueError
         SystemExit: TypeError
 
-    Returns:
-        list[dict]: Result of subnetting
+    Yields:
+        Iterator[list[dict]]: Network details
     """
 
     try:
-        # Split list of network subnets
+        # Split input string of network subnets into a list
         netsubnet_list = input_subnets.split(",")
         # Loop over netsubnet_list list
         for netsubnet in netsubnet_list:
