@@ -1,6 +1,7 @@
 #!usr/bin/env python3
 
 from colorama import init
+from termcolor import cprint
 
 from export_subnets import export_subnets
 from subnetting import subnetting
@@ -10,16 +11,19 @@ init(autoreset=True)
 
 def main():
     # Take inputs from the user
-    input_subnets = input(
-        "\n- Enter network subnet(s) in CIDR Notation (comma-seperated): "
-    )
-    workbook_name = (
-        input("- Name of Excel file w/o file extension? [Default IP-Schema.xlsx]: ")
-        or "IP-Schema"
-    )
-    worksheet_name = (
-        input("- Worksheet name? [Default IP Schema]: ") or "IP Schema Worksheet"
-    )
+    try:
+        input_subnets = input(
+            "\n- Enter network subnet(s) in CIDR Notation (comma-seperated): "
+        )
+        workbook_name = (
+            input("- Name of Excel file w/o file extension? [Default IP-Schema.xlsx]: ")
+            or "IP-Schema"
+        )
+        worksheet_name = (
+            input("- Worksheet name? [Default IP Schema]: ") or "IP Schema Worksheet"
+        )
+    except KeyboardInterrupt:
+        raise SystemExit(cprint("\nProcess interrupted by the user!", "yellow"))
 
     # Do Subnetting
     network_subnets = subnetting(input_subnets)
