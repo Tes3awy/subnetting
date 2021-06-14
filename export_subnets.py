@@ -25,8 +25,10 @@ def export_subnets(
 
     # Today's date
     today = datetime.date.today()
-    # Add a random UUID to the excel file name
-    excel_file_name = f"{workbook_name}-{str(uuid4())[:8]}_{today}.xlsx"
+    # Add a random 8 Chars UUID
+    uuid = str(uuid4())[:8]
+
+    excel_file_name = f"{workbook_name}-{uuid}_{today}.xlsx"
 
     # Create an Excel file
     with xlsxwriter.Workbook(excel_file_name) as workbook:

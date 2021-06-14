@@ -24,8 +24,6 @@ def subnetting(input_subnets: list) -> list[dict]:
     try:
         # Split list of network subnets
         netsubnet_list = input_subnets.split(",")
-        # Define an empty list to hold the output result
-        result = []
         # Loop over netsubnet_list list
         for netsubnet in netsubnet_list:
             cidr_notation = ipaddress.IPv4Network(netsubnet.strip())
@@ -64,10 +62,8 @@ def subnetting(input_subnets: list) -> list[dict]:
             network_details["wildcard"] = wildcard_mask
             network_details["num_hosts"] = len(hosts)
 
-            # Add network details to network details
-            result.append(network_details)
-
-        return result
+        # Yield network details generator
+        yield network_details
 
     except AddressValueError as e:
         raise SystemExit(cprint(e, "red"))
