@@ -24,8 +24,8 @@ def subnetting(input_subnets: list[list]) -> list[dict]:
     try:
         results = []
         # Loop over input_subnets
-        for netsubnet in input_subnets:
-            cidr_notation = ipaddress.IPv4Network(netsubnet[0])
+        for net_subnet in input_subnets:
+            cidr_notation = ipaddress.IPv4Network(net_subnet)
 
             # Find range of IP addresses
             hosts = list(cidr_notation.hosts())

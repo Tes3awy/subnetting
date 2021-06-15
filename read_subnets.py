@@ -17,9 +17,10 @@ def read_subnets(file_path: str = "subnets.csv") -> list[list]:
     # Read subnets CSV file
     with open(file=file_path, mode="r") as csvfile:
         next(csvfile)  # Skip header line
-        csv_data = csv.reader(csvfile, delimiter=",")
-
+        csv_data = csv.reader(
+            csvfile, delimiter="\n", dialect="excel", doublequote=True
+        )
         for subnet in csv_data:
-            subnets.append(subnet)
+            subnets.append(subnet[0])
 
     return subnets
