@@ -71,3 +71,7 @@ def subnetting(input_subnets: list[list]) -> list[dict]:
         raise SystemExit(cprint(e, "red"))
     except TypeError as e:
         raise SystemExit(cprint(e, "red"))
+    except IndexError as e:
+        raise SystemExit(
+            cprint(f"{e}. CSV file should contain at least one sunbet.", "red")
+        )
