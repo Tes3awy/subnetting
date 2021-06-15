@@ -14,7 +14,9 @@ def main():
     try:
         # CSV file
         input_subnets = (
-            input(f"\n- Name of subnets file? [Defaults to subnets.csv]: ")
+            input(
+                f"\n- Name of subnets file w/ file extension? [Defaults to subnets.csv]: "
+            )
             or "subnets.csv"
         )
         # Excel file name
