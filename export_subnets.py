@@ -16,8 +16,8 @@ def export_subnets(
 
     Args:
         subnets (list[dict]): Processed subnets
-        workbook_name (str): Name of the Excel file
-        worksheet_name (str): Name of the sheet within the Excel file
+        workbook_name (str, optional): Name of the Excel file. Defaults to "IP-Schema".
+        worksheet_name (str, optional):  Name of the sheet within the Excel file. Defaults to "IP Schema Worksheet".
 
     Raises:
         SystemExit: TypeError
