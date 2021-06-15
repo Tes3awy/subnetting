@@ -4,31 +4,36 @@ from colorama import init
 from termcolor import cprint
 
 from export_subnets import export_subnets
+from read_subnets import read_subnets
 from subnetting import subnetting
 
 init(autoreset=True)
 
 
 def main():
-    input_subnets = ""
     try:
-        # Take subnets from the user
-        while input_subnets == "":
-            input_subnets = input(
-                f"\n- Enter network subnet(s) in CIDR Notation (comma-seperated) [Required]: "
-            )
+        # CSV file
+        input_subnets = (
+            input(f"\n- Name of subnets file? [Defaults to subnets.csv]: ")
+            or "subnets.csv"
+        )
         # Excel file name
         workbook_name = (
-            input("- Name of Excel file w/o file extension? [Default IP-Schema.xlsx]: ")
+            input(
+                "- Name of Excel file w/o file extension? [Defaults to IP-Schema.xlsx]: "
+            )
             or "IP-Schema"
         )
         # Excel sheet name
         worksheet_name = (
-            input("- Worksheet name? [Default IP Schema Worksheet]: ")
+            input("- Worksheet name? [Defaults to IP Schema Worksheet]: ")
             or "IP Schema Worksheet"
         )
+
+        # Read CSV file
+        subnets = read_subnets(input_subnets)
         # Do Subnetting
-        network_subnets = subnetting(input_subnets)
+        network_subnets = subnetting(subnets)
         # Export subnetting results to an Excel file
         export_subnets(network_subnets, workbook_name, worksheet_name)
     except KeyboardInterrupt:
