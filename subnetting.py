@@ -2,32 +2,30 @@
 
 import ipaddress
 from ipaddress import AddressValueError, NetmaskValueError
-from typing import Iterator
 
 from termcolor import cprint
 
 
-def subnetting(input_subnets: str) -> Iterator[list[dict]]:
+def subnetting(input_subnets: list[list]) -> list[dict]:
     """Does subnetting on each value entered by the user
 
     Args:
-        input_subnets (str): Subnets entered by the user
+        input_subnets (list[list]): Subnets from CSV file
 
     Raises:
         SystemExit: AddressValueError
         SystemExit: NetmaskValueError
         SystemExit: TypeError
 
-    Yields:
-        Iterator[list[dict]]: Network details
+    Returns:
+        list[dict]: Networks details
     """
 
     try:
-        # Split input string of network subnets into a list
-        netsubnet_list = input_subnets.split(",")
-        # Loop over netsubnet_list list
-        for netsubnet in netsubnet_list:
-            cidr_notation = ipaddress.IPv4Network(netsubnet.strip())
+        results = []
+        # Loop over input_subnets
+        for netsubnet in input_subnets:
+            cidr_notation = ipaddress.IPv4Network(netsubnet[0])
 
             # Find range of IP addresses
             hosts = list(cidr_notation.hosts())
@@ -63,8 +61,9 @@ def subnetting(input_subnets: str) -> Iterator[list[dict]]:
             network_details["wildcard"] = wildcard_mask
             network_details["num_hosts"] = len(hosts)
 
-        # Yield network details generator
-        yield network_details
+            results.append(network_details)
+
+        return results
 
     except AddressValueError as e:
         raise SystemExit(cprint(e, "red"))
