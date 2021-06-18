@@ -19,6 +19,8 @@ def main():
             )
             or "subnets.csv"
         )
+        if ".csv" not in input_subnets:
+            raise SystemExit(cprint("Sorry, but input file MUST be a .csv file", "red"))
         # Excel file name
         workbook_name = (
             input(
@@ -38,6 +40,8 @@ def main():
         network_subnets = subnetting(subnets)
         # Export subnetting results to an Excel file
         export_subnets(network_subnets, workbook_name, worksheet_name)
+    except FileNotFoundError as e:
+        raise SystemExit(cprint(e, "red"))
     except KeyboardInterrupt:
         raise SystemExit(cprint("\nProcess interrupted by the user!", "yellow"))
 
