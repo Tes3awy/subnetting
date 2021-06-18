@@ -50,7 +50,7 @@ $ pip install -r requirements.txt --user
 
 **OR**
 
-1. Download from [Releases](https://github.com/Tes3awy/subnetting/releases/).
+1. Download latest release from [Releases](https://github.com/Tes3awy/subnetting/releases/).
 2. Extract `subnetting-<ver>.zip` file.
 3. `cd` into `subnetting-<ver>` directory.
 4. Run `path_to\subnetting-<ver>> pip install -r requirements.txt --user` in terminal.
@@ -88,6 +88,8 @@ Voila :sparkles: You have an Excel file that includes all required data about ea
 ```bash
 Please check IP-Schema-<EIGHT_CHARS_HASH>_<TODAYS_DATE>.xlsx in current working directory.
 ```
+
+> The eight characters hash is appended to avoid overwritting the generated Excel file by mistake. You won't get confused, as the name of the generated Excel file will be printed in the terminal.
 
 > **Default behaviors:**
 
