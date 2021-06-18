@@ -46,13 +46,13 @@ def subnetting(input_subnets: list[list]) -> list[dict]:
             network_details = {}
 
             network_details["cidr"] = str(cidr_notation)
-            network_details["network_address"] = str(cidr_notation.network_address)
-            network_details["prefix_length"] = str(cidr_notation.prefixlen)
-            network_details["broadcast_address"] = str(cidr_notation.broadcast_address)
+            network_details["net_addr"] = str(cidr_notation.network_address)
+            network_details["prefix_len"] = str(cidr_notation.prefixlen)
+            network_details["broadcast_addr"] = str(cidr_notation.broadcast_address)
             if start_ip == end_ip:
                 network_details["range"] = f"{start_ip}"
             else:
-                network_details["range"] = f"{start_ip} - {end_ip}"
+                network_details["range"] = f"{start_ip} → {end_ip}"
             if cidr_notation.prefixlen < 32:
                 network_details["gateway"] = f"{cidr_notation.network_address + 1}"
             else:
@@ -73,5 +73,5 @@ def subnetting(input_subnets: list[list]) -> list[dict]:
         raise SystemExit(cprint(e, "red"))
     except IndexError as e:
         raise SystemExit(
-            cprint(f"{e}. CSV file should contain at least one sunbet.", "red")
+            cprint(f"{e}. The input .csv file MUST contain at least one sunbet.", "red")
         )
