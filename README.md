@@ -76,9 +76,9 @@ You will be prompted to enter the name of the CSV file containing input subnets,
 > A `subnets.csv` file can be found in the repo. This file is an entry point to get started using this program. It's prepopulated with three different subnets. _(Class A, Class B, and Class C)_.
 
 ```bash
-- Name of subnets file w/ file extension? [Defaults to subnets.csv]:
-- Name of Excel file w/o file extension? [Defaults to IP-Schema.xlsx]:
-- Worksheet name? [Defaults to IP Schema Worksheet]:
+- CSV file w/ extension? [Defaults to subnets.csv]:
+- Excel file w/o extension? [Defaults to IP-Schema]: Test-Schema
+- Worksheet name? [Defaults to IP Schema Worksheet]: Test
 ```
 
 > - Abbreviations: <br /> - **w/: With** <br /> - **w/o: Without**
