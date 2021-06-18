@@ -14,20 +14,20 @@ def main():
     try:
         # CSV file
         input_subnets = (
-            input(
-                f"\n- Name of subnets file w/ file extension? [Defaults to subnets.csv]: "
-            )
+            input(f"\n- CSV file w/ extension? [Defaults to subnets.csv]: ")
             or "subnets.csv"
         )
         if ".csv" not in input_subnets:
-            raise SystemExit(cprint("Sorry, but input file MUST be a .csv file", "red"))
+            raise SystemExit(
+                cprint("Sorry, but the input file MUST be a .csv file", "red")
+            )
         # Excel file name
         workbook_name = (
-            input(
-                "- Name of Excel file w/o file extension? [Defaults to IP-Schema.xlsx]: "
-            )
+            input("- Excel file w/o extension? [Defaults to IP-Schema]: ")
             or "IP-Schema"
         )
+        if ".xlsx" in workbook_name:
+            raise SystemExit(cprint("Please remove the .xlsx extension", "red"))
         # Excel sheet name
         worksheet_name = (
             input("- Worksheet name? [Defaults to IP Schema Worksheet]: ")
