@@ -1,12 +1,12 @@
 [![Tested on Python 3.6+](https://img.shields.io/badge/Python%203.6+-blue.svg?logo=python&logoColor=white)](https://www.python.org/downloads)
 [![Visual Studio Code](https://img.shields.io/badge/1.57.1-blue.svg?logo=visual-studio-code)](https://code.visualstudio.com/)
 [![Code Size](https://img.shields.io/github/languages/code-size/Tes3awy/subnetting?color=green)](https://github.com/Tes3awy/subnetting)
-![Contributors](https://img.shields.io/github/contributors/Tes3awy/subnetting)
-![Release Date](https://img.shields.io/github/release-date/Tes3awy/subnetting)
-![Commit Activity](https://img.shields.io/github/commit-activity/m/Tes3awy/subnetting)
-![Open Issues](https://img.shields.io/github/issues/Tes3awy/subnetting)
-![Closed PR](https://img.shields.io/github/issues-pr-closed/Tes3awy/subnetting)
-[![License](https://img.shields.io/github/license/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting)
+[![Contributors](https://img.shields.io/github/contributors/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/graphs/contributors)
+[![Release Date](https://img.shields.io/github/release-date/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/releases)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/commits/main)
+[![Open Issues](https://img.shields.io/github/issues/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/issues)
+[![Closed PR](https://img.shields.io/github/issues-pr-closed/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/pulls?q=is%3Apr+is%3Aclosed)
+[![License](https://img.shields.io/github/license/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/blob/main/LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # Advanced IPv4 Subnet Calculator in Python3
@@ -16,7 +16,8 @@
 1. [Getting Started](#getting-started)
 2. [Installation](#installation)
 3. [How it works?](#how-it-works)
-4. [Previews](#previews)
+4. [SVI Configuration Template](#svi-configuration-template)
+5. [Previews](#previews)
 
 ### Getting Started
 
@@ -39,6 +40,7 @@
         preview.png
         subnets-csv.png
         subnetting-cli.png
+        svi.png
 ```
 
 ---
@@ -74,14 +76,15 @@ path_to\subnetting> python main.py
 $ python3 main.py
 ```
 
-You will be prompted to enter the name of the CSV file containing input subnets, a name for the Excel file to be created, and the name of the sheet within the Excel file that will hold all subnetting data. _(All inputs have default values)_.
+You will be prompted to enter the name of the CSV file containing input subnets, the gateway IP address, a name for the Excel file to be created, and the name of the sheet within the Excel file that will hold all subnetting data. _(All inputs have default values)_.
 
 > A `subnets.csv` file can be found in the repo. This file is an entry point to get started using this program. It's prepopulated with three different subnets. _(Class A, Class B, and Class C)_.
 
 ```bash
 - CSV file w/ extension? [Defaults to subnets.csv]:
+- Gateway first or last IP Address? [0/1] [Defaults to 0]:
 - Excel file w/o extension? [Defaults to IP-Schema]: Test-Schema
-- Worksheet name? [Defaults to IP Schema Worksheet]: Test
+- Worksheet name? [Defaults to IP Schema Worksheet]: Test Worksheet
 ```
 
 > - Abbreviations: <br /> - **w/: With** <br /> - **w/o: Without**
@@ -89,7 +92,7 @@ You will be prompted to enter the name of the CSV file containing input subnets,
 Voila :sparkles: You have an Excel file that includes all required data about each subnet.
 
 ```bash
-Please check IP-Schema-<TODAYS_DATE>.xlsx in current working directory.
+Please check Test-Schema_<TODAYS_DATE>.xlsx in current working directory.
 ```
 
 > **Default behaviors:**
@@ -98,15 +101,23 @@ Please check IP-Schema-<TODAYS_DATE>.xlsx in current working directory.
 
 > 2. The header line **`Subnets in CIDR Notation`** within the `subnets.csv` file is automatically skipped. So, there is no need to manually remove it.
 
-Finally, if you have a L3 switch and you want to create SVIs of the created subnets on that switch, you can run:
+> 3. Gateway input accepts 0 or 1 **ONLY** [Defaults to 0]. 0 picks the first IP address of the subnet, while 1 picks the last IP address.
 
-```python
-python parse_excel.py --file IP-Schema-<TODAYS_DATE>.xlsx
+> 4. Microsoft Excel does not allow worksheet name longer than 31 characters. Worksheet names longer than 31 chars will be truncated.
+
+---
+
+### SVI Configuration Template
+
+Finally, if you have a L3 switch and you want to create [SVI interfaces](https://en.wikipedia.org/wiki/Switch_virtual_interface) of the created subnets on that switch, you can run:
+
+```bash
+$ python parse_excel.py --file Test-Schema-<TODAYS_DATE>.xlsx
 ```
 
-This Python script will generate a text file containing all VLANs and their SVIs.
+This Python script will generate a text file including all VLANs and their SVI interfaces.
 
-> **Make sure you add the VLAN ID and VLAN Name in all the cells in the generated Excel file before running this script. _Otherwise, VLAN ID and VLAN Name will be NaN_.**
+> **NOTE:** Make sure you add the VLAN ID and VLAN Name in all the cells in the generated Excel file before running this script. _Otherwise, VLAN ID and VLAN Name will be NaN_ in the generated text file.
 
 ---
 
@@ -120,3 +131,6 @@ This Python script will generate a text file containing all VLANs and their SVIs
 
 **Excel File (Output File)**
 ![Excel Preview](assets/preview.png)
+
+**SVI Template**
+![SVI CLI](assets/svi.png)
