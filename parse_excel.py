@@ -42,6 +42,6 @@ if not os.path.isfile(args.file):
 svi_generator(args.file)
 
 cprint(
-    f'Created {args.file.replace(".xlsx", "")}_svi_template_{today}.txt successfully',
+    f'Created {args.file.replace(".xlsx", "")}_svi_template_{today}.txt successfully.',
     "green",
 )

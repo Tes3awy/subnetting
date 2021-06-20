@@ -14,6 +14,7 @@ def read_subnets(file_path: str = "subnets.csv") -> list[list]:
     """
     # Define an empty list to hold all subnets
     subnets = []
+
     # Read subnets CSV file
     with open(file=file_path, mode="r") as csvfile:
         next(csvfile)  # Skip header line

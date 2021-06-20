@@ -75,7 +75,7 @@ def export_subnets(
         )
 
         # Format cell containing number
-        num_cell_frmt = workbook.add_format(
+        num_frmt = workbook.add_format(
             {
                 "border": True,
                 "align": "center",
@@ -101,12 +101,10 @@ def export_subnets(
                 worksheet.write(row, col + 7, net_subnet["gateway"], cell_frmt)
                 worksheet.write(row, col + 8, net_subnet["netmask"], cell_frmt)
                 worksheet.write(row, col + 9, net_subnet["wildcard"], cell_frmt)
-                worksheet.write_number(
-                    row, col + 10, net_subnet["num_hosts"], num_cell_frmt
-                )
+                worksheet.write_number(row, col + 10, net_subnet["num_hosts"], num_frmt)
                 # Jump to next row
                 row += 1
 
         except TypeError as e:
-            raise SystemExit(cprint(e, "red"))
+            raise SystemExit(cprint(f"export_subnets.py: {e}", "red"))
     cprint(f"\nPlease check {excel_file_name} in current working directory.\n", "green")
