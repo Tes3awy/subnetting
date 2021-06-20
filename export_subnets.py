@@ -1,7 +1,6 @@
 #!usr/bin/env python3
 
-import datetime
-from uuid import uuid4
+from datetime import date
 
 import xlsxwriter
 from termcolor import cprint
@@ -24,11 +23,9 @@ def export_subnets(
     """
 
     # Today's date
-    today = datetime.date.today()
-    # Add a random 8 Chars UUID
-    uuid = str(uuid4())[0:8]
+    today = date.today()
 
-    excel_file_name = f"{workbook_name}-{uuid}_{today}.xlsx"
+    excel_file_name = f"{workbook_name}_{today}.xlsx"
 
     # Create an Excel file
     with xlsxwriter.Workbook(excel_file_name) as workbook:
