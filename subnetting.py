@@ -6,11 +6,12 @@ from ipaddress import AddressValueError, NetmaskValueError
 from termcolor import cprint
 
 
-def subnetting(input_subnets: list[list]) -> list[dict]:
+def subnetting(input_subnets: list[list], gateway: int) -> list[dict]:
     """Does subnetting on each value entered by the user
 
     Args:
         input_subnets (list[list]): Subnets from CSV file
+        gateway (int): An interger that decides which IP address is the gateway
 
     Raises:
         SystemExit: AddressValueError
@@ -49,29 +50,40 @@ def subnetting(input_subnets: list[list]) -> list[dict]:
             network_details["net_addr"] = str(cidr_notation.network_address)
             network_details["prefix_len"] = str(cidr_notation.prefixlen)
             network_details["broadcast_addr"] = str(cidr_notation.broadcast_address)
-            if start_ip == end_ip:
-                network_details["range"] = f"{start_ip}"
-            else:
-                network_details["range"] = f"{start_ip} → {end_ip}"
-            if cidr_notation.prefixlen < 32:
-                network_details["gateway"] = f"{cidr_notation.network_address + 1}"
-            else:
-                network_details["gateway"] = str(cidr_notation.network_address)
-            network_details["netmask"] = f"{cidr_notation.netmask}"
+            network_details["netmask"] = str(cidr_notation.netmask)
             network_details["wildcard"] = wildcard_mask
             network_details["num_hosts"] = len(hosts)
+
+            if start_ip == end_ip:
+                network_details["range"] = str(start_ip)
+            else:
+                network_details["range"] = f"{start_ip} → {end_ip}"
+
+            if gateway:
+                network_details["gateway"] = str(end_ip)
+            else:
+                network_details["gateway"] = str(start_ip)
 
             results.append(network_details)
 
         return results
 
     except AddressValueError as e:
-        raise SystemExit(cprint(e, "red"))
+        raise SystemExit(cprint(f"subnetting.py: {e}", "red"))
     except NetmaskValueError as e:
-        raise SystemExit(cprint(e, "red"))
+        raise SystemExit(
+            cprint(
+                f"subnetting.py: {e}. Please check {net_subnet} prefix length!", "red"
+            )
+        )
     except TypeError as e:
-        raise SystemExit(cprint(e, "red"))
+        raise SystemExit(cprint(f"subnetting.py: {e}", "red"))
+    except ValueError as e:
+        raise SystemExit(cprint(f"subnetting.py: {e}.", "red"))
     except IndexError as e:
         raise SystemExit(
-            cprint(f"{e}. The input .csv file MUST contain at least one sunbet.", "red")
+            cprint(
+                f"subnetting.py:{e}. The input CSV file MUST contain at least one sunbet.",
+                "red",
+            )
         )
