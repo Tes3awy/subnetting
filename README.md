@@ -25,6 +25,9 @@
 │   read_subnets.py
 │   subnetting.py
 │   export_subnets.py
+│   parse_excel.py
+│   svi_generator.py
+│   svi.j2
 │   subnets.csv
 │   requirements.txt
 │   README.md
@@ -86,16 +89,24 @@ You will be prompted to enter the name of the CSV file containing input subnets,
 Voila :sparkles: You have an Excel file that includes all required data about each subnet.
 
 ```bash
-Please check IP-Schema-<EIGHT_CHARS_HASH>_<TODAYS_DATE>.xlsx in current working directory.
+Please check IP-Schema-<TODAYS_DATE>.xlsx in current working directory.
 ```
-
-> The eight characters hash is appended to avoid overwritting the generated Excel file by mistake. You won't get confused, as the name of the generated Excel file will be printed in the terminal.
 
 > **Default behaviors:**
 
 > 1. CIDR notation with no prefix length will be handled as /32. <br /> - For example, if you enter `10.0.0.0` without a prefix length in the CSV file, the script will handle it like `10.0.0.0/32`.
 
 > 2. The header line **`Subnets in CIDR Notation`** within the `subnets.csv` file is automatically skipped. So, there is no need to manually remove it.
+
+Finally, if you have a L3 switch and you want to create SVIs of the created subnets on that switch, you can run:
+
+```python
+python parse_excel.py --file IP-Schema-<TODAYS_DATE>.xlsx
+```
+
+This Python script will generate a text file containing all VLANs and their SVIs.
+
+> **Make sure you add the VLAN ID and VLAN Name in all the cells in the generated Excel file before running this script. _Otherwise, VLAN ID and VLAN Name will be NaN_.**
 
 ---
 

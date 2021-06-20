@@ -1,0 +1,16 @@
+!Configuration Built on {{ now().replace(microsecond=0) }}
+
+{% for vlan in vlans %}
+vlan {{ vlan.id }}
+ name {{ vlan.name|replace(" ","_") }}
+exit
+!
+{% endfor %}
+{% for vlan in vlans %}
+!
+interface vlan {{ vlan.id }}
+ ip address {{ vlan.ipaddr }} {{ vlan.mask }}
+ description *** {{ vlan.name }} ***
+ no shutdown
+exit
+{% endfor %}
