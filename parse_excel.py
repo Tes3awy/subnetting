@@ -11,7 +11,6 @@ from svi_generator import svi_generator
 
 init(autoreset=True)
 
-today = date.today()
 
 parser = ArgumentParser(
     description="An Excel file that contains subnets",
@@ -27,7 +26,7 @@ parser.add_argument(
     action="store",
     type=str,
     required=True,
-    help="Path to/Name of an Excel file",
+    help="Path to an Excel file",
 )
 
 args = parser.parse_args()
@@ -42,6 +41,6 @@ if not os.path.isfile(args.file):
 svi_generator(args.file)
 
 cprint(
-    f'Created {args.file.replace(".xlsx", "")}_svi_template_{today}.txt successfully.',
+    f'\nCreated {args.file.replace(".xlsx", "")}-svi-template.txt successfully.',
     "green",
 )

@@ -44,10 +44,6 @@ def main():
             or "IP Schema Worksheet"
         )
 
-        # Microsoft Excel does not allow worksheet name longer than 31 chars
-        if len(worksheet_name) > 31:
-            worksheet_name = worksheet_name[0:31]
-
         # Read CSV file
         subnets = read_subnets(input_subnets)
 
@@ -55,7 +51,7 @@ def main():
         network_subnets = subnetting(subnets, gateway)
 
         # Export subnetting results to an Excel file
-        export_subnets(network_subnets, workbook_name, worksheet_name)
+        export_subnets(network_subnets, workbook_name, worksheet_name[:31])
 
     except FileNotFoundError:
         raise SystemExit(
