@@ -3,7 +3,7 @@
 import ipaddress
 from ipaddress import AddressValueError, NetmaskValueError
 
-from termcolor import cprint
+from termcolor import colored
 
 
 def subnetting(input_subnets: list[list], gateway: int) -> list[dict]:
@@ -25,8 +25,8 @@ def subnetting(input_subnets: list[list], gateway: int) -> list[dict]:
     try:
         results = []
         # Loop over input_subnets
-        for net_subnet in input_subnets:
-            cidr_notation = ipaddress.IPv4Network(net_subnet)
+        for subnet in input_subnets:
+            cidr_notation = ipaddress.IPv4Network(subnet)
 
             # Find range of IP addresses
             hosts = list(cidr_notation.hosts())
@@ -59,7 +59,7 @@ def subnetting(input_subnets: list[list], gateway: int) -> list[dict]:
             else:
                 network_details["range"] = f"{start_ip} → {end_ip}"
 
-            if gateway:
+            if gateway:  # if gateway == 1:
                 network_details["gateway"] = str(end_ip)
             else:
                 network_details["gateway"] = str(start_ip)
@@ -69,20 +69,18 @@ def subnetting(input_subnets: list[list], gateway: int) -> list[dict]:
         return results
 
     except AddressValueError as e:
-        raise SystemExit(cprint(f"subnetting.py: {e}", "red"))
+        raise SystemExit(colored(f"subnetting.py: {e}", "red"))
     except NetmaskValueError as e:
         raise SystemExit(
-            cprint(
-                f"subnetting.py: {e}. Please check {net_subnet} prefix length!", "red"
-            )
+            colored(f"subnetting.py: {e}. Please check {subnet} prefix length!", "red")
         )
     except TypeError as e:
-        raise SystemExit(cprint(f"subnetting.py: {e}", "red"))
+        raise SystemExit(colored(f"subnetting.py: {e}", "red"))
     except ValueError as e:
-        raise SystemExit(cprint(f"subnetting.py: {e}.", "red"))
+        raise SystemExit(colored(f"subnetting.py: {e}.", "red"))
     except IndexError as e:
         raise SystemExit(
-            cprint(
+            colored(
                 f"subnetting.py:{e}. The input CSV file MUST contain at least one sunbet.",
                 "red",
             )

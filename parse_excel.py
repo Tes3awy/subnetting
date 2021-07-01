@@ -2,10 +2,9 @@
 
 import os
 from argparse import ArgumentParser
-from datetime import date
 
 from colorama import init
-from termcolor import cprint
+from termcolor import colored, cprint
 
 from svi_generator import svi_generator
 
@@ -13,6 +12,8 @@ init(autoreset=True)
 
 
 parser = ArgumentParser(
+    prog="parse excel",
+    usage="python parse_excel.py --file <path to an Excel file>",
     description="An Excel file that contains subnets",
     epilog="Enjoy the program! :)",
     allow_abbrev=True,
@@ -22,21 +23,21 @@ parser = ArgumentParser(
 parser.add_argument(
     "-f",
     "--file",
-    metavar="file",
+    metavar="Excel file",
     action="store",
     type=str,
     required=True,
-    help="Path to an Excel file",
+    help="the path to an Excel file",
 )
 
 args = parser.parse_args()
 
-if ".xlsx" not in args.file:
+if not args.file.endswith(".xlsx"):
     raise SystemExit(
-        cprint("Invalid input file. The file MUST end with .xlsx extension", "red")
+        colored("\nInvalid input file. The file MUST end with .xlsx extension", "red")
     )
 if not os.path.isfile(args.file):
-    raise SystemExit(cprint(f"{args.file} does not exist!", "red"))
+    raise SystemExit(colored(f"{args.file} does not exist!", "red"))
 
 svi_generator(args.file)
 

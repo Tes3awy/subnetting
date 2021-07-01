@@ -1,7 +1,7 @@
 #!usr/bin/env python3
 
 from colorama import init
-from termcolor import cprint
+from termcolor import colored
 
 from export_subnets import export_subnets
 from read_subnets import read_subnets
@@ -19,14 +19,15 @@ def main():
         )
         if ".csv" not in input_subnets:
             raise SystemExit(
-                cprint("Sorry! The input file MUST include .csv extension", "red")
+                colored("Sorry! The input file MUST include .csv extension", "red")
             )
         gateway = int(
-            input("- Gateway first or last IP Address? [0/1] [Defaults to 0]: ") or "0"
+            input("- The gateway, first or last IP Address? [0/1] [Defaults to 0]: ")
+            or "0"
         )
         if gateway not in (0, 1):
             raise SystemExit(
-                cprint(
+                colored(
                     "0 and 1 are the only allowed values! 0: First IP, 1: Last IP",
                     "red",
                 )
@@ -37,7 +38,7 @@ def main():
             or "IP-Schema"
         )
         if ".xlsx" in workbook_name:
-            raise SystemExit(cprint("Oops! Please remove the .xlsx extension", "red"))
+            raise SystemExit(colored("Oops! Please remove the .xlsx extension", "red"))
         # Excel sheet name
         worksheet_name = (
             input("- Worksheet name? [Defaults to IP Schema Worksheet]: ")
@@ -55,10 +56,10 @@ def main():
 
     except FileNotFoundError:
         raise SystemExit(
-            cprint(f"main.py: {input_subnets} file does not exist!", "red")
+            colored(f"main.py: {input_subnets} file does not exist!", "red")
         )
     except KeyboardInterrupt:
-        raise SystemExit(cprint("\nProcess interrupted by the user!", "yellow"))
+        raise SystemExit(colored("\nProcess interrupted by the user!", "yellow"))
 
     print("Done")
 

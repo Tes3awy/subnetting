@@ -3,7 +3,7 @@
 from datetime import date
 
 import xlsxwriter
-from termcolor import cprint
+from termcolor import colored, cprint
 
 
 def export_subnets(
@@ -22,10 +22,7 @@ def export_subnets(
         SystemExit: TypeError
     """
 
-    # Today's date
-    today = date.today()
-
-    excel_file_name = f"{workbook_name}_{today}.xlsx"
+    excel_file_name = f"{workbook_name}_{date.today()}.xlsx"
 
     # Create an Excel file
     with xlsxwriter.Workbook(excel_file_name) as workbook:
@@ -90,21 +87,21 @@ def export_subnets(
 
         try:
             # Place subnetting data according to header line above
-            for net_subnet in subnets:
+            for subnet in subnets:
                 worksheet.write(row, col + 0, "", cell_frmt)
                 worksheet.write(row, col + 1, "", cell_frmt)
-                worksheet.write(row, col + 2, net_subnet["cidr"], cell_frmt)
-                worksheet.write(row, col + 3, net_subnet["net_addr"], cell_frmt)
-                worksheet.write(row, col + 4, f'/{net_subnet["prefix_len"]}', cell_frmt)
-                worksheet.write(row, col + 5, net_subnet["broadcast_addr"], cell_frmt)
-                worksheet.write(row, col + 6, net_subnet["range"], cell_frmt)
-                worksheet.write(row, col + 7, net_subnet["gateway"], cell_frmt)
-                worksheet.write(row, col + 8, net_subnet["netmask"], cell_frmt)
-                worksheet.write(row, col + 9, net_subnet["wildcard"], cell_frmt)
-                worksheet.write_number(row, col + 10, net_subnet["num_hosts"], num_frmt)
+                worksheet.write(row, col + 2, subnet["cidr"], cell_frmt)
+                worksheet.write(row, col + 3, subnet["net_addr"], cell_frmt)
+                worksheet.write(row, col + 4, f'/{subnet["prefix_len"]}', cell_frmt)
+                worksheet.write(row, col + 5, subnet["broadcast_addr"], cell_frmt)
+                worksheet.write(row, col + 6, subnet["range"], cell_frmt)
+                worksheet.write(row, col + 7, subnet["gateway"], cell_frmt)
+                worksheet.write(row, col + 8, subnet["netmask"], cell_frmt)
+                worksheet.write(row, col + 9, subnet["wildcard"], cell_frmt)
+                worksheet.write_number(row, col + 10, subnet["num_hosts"], num_frmt)
                 # Jump to next row
                 row += 1
 
         except TypeError as e:
-            raise SystemExit(cprint(f"export_subnets.py: {e}", "red"))
+            raise SystemExit(colored(f"export_subnets.py: {e}", "red"))
     cprint(f"\nPlease check {excel_file_name} in current working directory.\n", "green")

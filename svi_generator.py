@@ -7,7 +7,7 @@ import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
 
-def svi_generator(excel_file: str):
+def svi_generator(excel_file: str) -> None:
     """Generate an SVI configuration template
 
     Args:
