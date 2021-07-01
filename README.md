@@ -46,6 +46,7 @@
         preview.png
         subnets-csv.png
         subnetting-cli.png
+        svi-template.png
         svi.png
 ```
 
