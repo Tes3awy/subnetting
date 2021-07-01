@@ -4,10 +4,16 @@
 [![Contributors](https://img.shields.io/github/contributors/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/graphs/contributors)
 [![Release Date](https://img.shields.io/github/release-date/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/releases)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/commits/main)
+![Languages Count](https://img.shields.io/github/languages/count/Tes3awy/subnetting)
+![Top Language](https://img.shields.io/github/languages/top/Tes3awy/subnetting)
+[![Stars](https://img.shields.io/github/stars/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/stargazers)
+[![Forks](https://img.shields.io/github/forks/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/network/members)
 [![Open Issues](https://img.shields.io/github/issues/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/issues)
 [![Closed PR](https://img.shields.io/github/issues-pr-closed/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/pulls?q=is%3Apr+is%3Aclosed)
 [![License](https://img.shields.io/github/license/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/blob/main/LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Pre-Commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 # Advanced IPv4 Subnet Calculator in Python3
 
@@ -56,9 +62,9 @@ $ pip install -r requirements.txt --user
 **OR**
 
 1. Download latest release from [Releases](https://github.com/Tes3awy/subnetting/releases/).
-2. Extract `subnetting-<ver>.zip` file.
-3. `cd` into `subnetting-<ver>` directory.
-4. Run `path_to\subnetting-<ver>> pip install -r requirements.txt --user` in terminal.
+2. Extract `subnetting.zip` file.
+3. `cd` into `subnetting` directory.
+4. Run `path_to\subnetting> pip install -r requirements.txt --user` in terminal.
 
 ---
 
@@ -132,5 +138,8 @@ This Python script will generate a text file including all VLANs and their SVI i
 **Excel File (Output File)**
 ![Excel Preview](assets/preview.png)
 
-**SVI Template**
+**python parse_excel.py --file <file_name>.xlsx**
 ![SVI CLI](assets/svi.png)
+
+**SVI Template**
+![SVI Template](assets/svi-template.png)
