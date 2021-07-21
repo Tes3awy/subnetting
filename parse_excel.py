@@ -33,9 +33,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 if not args.file.endswith(".xlsx"):
-    raise SystemExit(
-        colored("\nInvalid input file. The file MUST end with .xlsx extension", "red")
-    )
+    raise SystemExit(colored("\nInvalid input file. The file MUST be a .xlsx", "red"))
 if not os.path.isfile(args.file):
     raise SystemExit(colored(f"{args.file} does not exist!", "red"))
 

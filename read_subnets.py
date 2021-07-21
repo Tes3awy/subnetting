@@ -1,16 +1,17 @@
 #!usr/bin/env python3
 
 import csv
+from typing import AnyStr, List
 
 
-def read_subnets(file_path: str = "subnets.csv") -> list[list]:
+def read_subnets(file_path: AnyStr = "subnets.csv") -> List[List]:
     """Read CSV subnets file
 
     Args:
-        file_path (str, optional): Path to subnets CSV file. Defaults to "subnets.csv".
+        file_path (AnyStr, optional): Path to subnets CSV file. Defaults to "subnets.csv".
 
     Returns:
-        list[list]: Subnets in CIDR notation representation
+        List[List]: Subnets in CIDR notation representation
     """
     # Define an empty list to hold all subnets
     subnets = []

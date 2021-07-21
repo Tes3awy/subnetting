@@ -1,5 +1,7 @@
 #!usr/bin/env python3
 
+from getpass import getuser
+
 from colorama import init
 from termcolor import colored
 
@@ -37,7 +39,7 @@ def main():
             input("- Excel file w/o extension? [Defaults to IP-Schema]: ")
             or "IP-Schema"
         )
-        if ".xlsx" in workbook_name:
+        if workbook_name.endswith(".xlsx"):
             raise SystemExit(colored("Oops! Please remove the .xlsx extension", "red"))
         # Excel sheet name
         worksheet_name = (
@@ -46,20 +48,24 @@ def main():
         )
 
         # Read CSV file
-        subnets = read_subnets(input_subnets)
+        subnets = read_subnets(file_path=input_subnets)
 
         # Do Subnetting
-        network_subnets = subnetting(subnets, gateway)
+        network_subnets = subnetting(input_subnets=subnets, gateway=gateway)
 
         # Export subnetting results to an Excel file
-        export_subnets(network_subnets, workbook_name, worksheet_name[:31])
+        export_subnets(
+            subnets=network_subnets,
+            workbook_name=workbook_name,
+            worksheet_name=worksheet_name[:31],
+        )
 
     except FileNotFoundError:
         raise SystemExit(
             colored(f"main.py: {input_subnets} file does not exist!", "red")
         )
     except KeyboardInterrupt:
-        raise SystemExit(colored("\nProcess interrupted by the user!", "yellow"))
+        raise SystemExit(colored(f"\nProcess interrupted by {getuser()}", "yellow"))
 
     print("Done")
 

@@ -2,15 +2,16 @@
 
 import ipaddress
 from ipaddress import AddressValueError, NetmaskValueError
+from typing import Dict, List
 
 from termcolor import colored
 
 
-def subnetting(input_subnets: list[list], gateway: int) -> list[dict]:
+def subnetting(input_subnets: List[List], gateway: int) -> List[Dict]:
     """Does subnetting on each value entered by the user
 
     Args:
-        input_subnets (list[list]): Subnets from CSV file
+        input_subnets (List[List]): Subnets from CSV file
         gateway (int): An interger that decides which IP address is the gateway
 
     Raises:
@@ -19,7 +20,7 @@ def subnetting(input_subnets: list[list], gateway: int) -> list[dict]:
         SystemExit: TypeError
 
     Returns:
-        list[dict]: Networks details
+        List[Dict]: Networks details
     """
 
     try:
