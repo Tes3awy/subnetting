@@ -1,5 +1,4 @@
 [![Tested on Python 3.6+](https://img.shields.io/badge/Python%203.6+-blue.svg?logo=python&logoColor=white)](https://www.python.org/downloads)
-[![Visual Studio Code](https://img.shields.io/badge/1.57.1-blue.svg?logo=visual-studio-code)](https://code.visualstudio.com/)
 [![Code Size](https://img.shields.io/github/languages/code-size/Tes3awy/subnetting?color=green)](https://github.com/Tes3awy/subnetting)
 [![Contributors](https://img.shields.io/github/contributors/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/graphs/contributors)
 [![Release Date](https://img.shields.io/github/release-date/Tes3awy/subnetting)](https://github.com/Tes3awy/subnetting/releases)
@@ -62,7 +61,7 @@ $ pip install -r requirements.txt --user
 
 **OR**
 
-1. Download latest release from [Releases](https://github.com/Tes3awy/subnetting/releases/).
+1. Download the latest release from [Releases](https://github.com/Tes3awy/subnetting/releases/).
 2. Extract `subnetting.zip` file.
 3. `cd` into `subnetting` directory.
 4. Run `path_to\subnetting> pip install -r requirements.txt --user` in terminal.
@@ -83,13 +82,13 @@ path_to\subnetting> python main.py
 $ python3 main.py
 ```
 
-You will be prompted to enter the name of the CSV file containing input subnets, the gateway IP address, a name for the Excel file to be created, and the name of the sheet within the Excel file that will hold all subnetting data. _(All inputs have default values)_.
+You will be prompted to enter the name of the CSV file containing input subnets, the gateway IP address, a name for the Excel file to be created, and the name of the sheet within the Excel file. _(All inputs have default values)_.
 
-> A `subnets.csv` file can be found in the repo. This file is an entry point to get started using this program. It's prepopulated with three different subnets. _(Class A, Class B, and Class C)_.
+> A `subnets.csv` file can be found in the repo. This file is an entry point to get started using this program. It's prepopulated with three different subnets. _(Class A, B, and C)_.
 
 ```bash
 - CSV file w/ extension? [Defaults to subnets.csv]:
-- Gateway first or last IP Address? [0/1] [Defaults to 0]:
+- The gateway, first or last IP Address? [0/1] [Defaults to 0]:
 - Excel file w/o extension? [Defaults to IP-Schema]: Test-Schema
 - Worksheet name? [Defaults to IP Schema Worksheet]: Test Worksheet
 ```
@@ -119,12 +118,16 @@ Please check Test-Schema_<TODAYS_DATE>.xlsx in current working directory.
 Finally, if you have a L3 switch and you want to create [SVI interfaces](https://en.wikipedia.org/wiki/Switch_virtual_interface) of the created subnets on that switch, you can run:
 
 ```bash
-$ python parse_excel.py --file Test-Schema-<TODAYS_DATE>.xlsx
+$ python parse_excel.py --file <EXCEL_FILE_NAME>.xlsx
+```
+**OR**
+```
+$ python parse_excel.py -f <EXCEL_FILE_NAME>.xlsx
 ```
 
-This Python script will generate a text file including all VLANs and their SVI interfaces.
+This Python script will generate a configuration file that includes all VLANs and their SVI interfaces.
 
-> **NOTE:** Make sure you add the VLAN ID and VLAN Name in all the cells in the generated Excel file before running this script. _Otherwise, VLAN ID and VLAN Name will be NaN_ in the generated text file.
+> **NOTE:** Make sure you add the VLAN ID and VLAN Name in all the cells in the generated Excel file before running `parse_excel.py` script. _Otherwise, VLAN ID and VLAN Name will be NaN_ in the generated configuration file.
 
 ---
 
@@ -139,7 +142,7 @@ This Python script will generate a text file including all VLANs and their SVI i
 **Excel File (Output File)**
 ![Excel Preview](assets/preview.png)
 
-**python parse_excel.py --file <file_name>.xlsx**
+**python parse_excel.py --file <EXCEL_FILE_NAME>.xlsx**
 ![SVI CLI](assets/svi.png)
 
 **SVI Template**
