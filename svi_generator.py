@@ -6,6 +6,7 @@ from typing import AnyStr
 
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
+from numpy import nan
 
 
 def svi_generator(excel_file: AnyStr) -> None:
@@ -26,17 +27,18 @@ def svi_generator(excel_file: AnyStr) -> None:
 
     # Read the Excel file
     data = pd.read_excel(
-        io=os.path.join("./", excel_file), sheet_name=0, usecols="A:B,H:I"
+        io=os.path.join("./", excel_file), sheet_name=0, usecols="A:B,H:J"
     )
     df = pd.DataFrame(data=data)
 
-    # Create a vlans dictionary from columns
+    # Create a vlans List[Dict] from columns
     vlans = df.rename(
         columns={
             "VLAN ID": "id",
             "VLAN Name": "name",
             "Gateway": "ipaddr",
             "Subnet Mask": "mask",
+            "IP Helper Address": "helper_addr",
         }
     ).to_dict(orient="records")
 

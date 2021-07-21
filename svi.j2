@@ -12,6 +12,9 @@ exit
 interface vlan {{ vlan.id }}
  ip address {{ vlan.ipaddr }} {{ vlan.mask }}
  description *** {{ vlan.name|upper }} ***
+ {% if vlan.helper_addr|string != "nan" %}
+ ip helper-address {{ vlan.helper_addr }}
+ {% endif %}
  no shutdown
 exit
 !

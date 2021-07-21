@@ -30,7 +30,7 @@ def export_subnets(
         # Create a sheet within the Excel file
         worksheet = workbook.add_worksheet(name=worksheet_name)
         # Filters
-        worksheet.autofilter("A1:K1")
+        worksheet.autofilter("A1:L1")
         # Freeze top row and 2 most left columns
         worksheet.freeze_panes(1, 2)
 
@@ -43,10 +43,11 @@ def export_subnets(
             "E1": "Prefix Length",
             "F1": "Broadcast Address",
             "G1": "Addresses Range",
-            "H1": "Gateway",
-            "I1": "Subnet Mask",
-            "J1": "Wildcard Mask",
-            "K1": "Max. No. of Usable Hosts",
+            "H1": "IP Helper Address",
+            "I1": "Gateway",
+            "J1": "Subnet Mask",
+            "K1": "Wildcard Mask",
+            "L1": "Max. No. of Usable Hosts",
         }
 
         # Header line format
@@ -64,7 +65,7 @@ def export_subnets(
             worksheet.write_string(cell, value, cell_format=header_line_frmt)
 
         # Generic cell format
-        cell_frmt = workbook.add_format(
+        c_frmt = workbook.add_format(
             properties={
                 "border": True,
                 "align": "center",
@@ -88,20 +89,25 @@ def export_subnets(
         try:
             # Place subnetting data according to header line above
             for subnet in subnets:
-                worksheet.write(row, col + 0, "", cell_frmt)
-                worksheet.write(row, col + 1, "", cell_frmt)
-                worksheet.write(row, col + 2, subnet["cidr"], cell_frmt)
-                worksheet.write(row, col + 3, subnet["net_addr"], cell_frmt)
-                worksheet.write(row, col + 4, f'/{subnet["prefix_len"]}', cell_frmt)
-                worksheet.write(row, col + 5, subnet["broadcast_addr"], cell_frmt)
-                worksheet.write(row, col + 6, subnet["range"], cell_frmt)
-                worksheet.write(row, col + 7, subnet["gateway"], cell_frmt)
-                worksheet.write(row, col + 8, subnet["netmask"], cell_frmt)
-                worksheet.write(row, col + 9, subnet["wildcard"], cell_frmt)
-                worksheet.write_number(row, col + 10, subnet["num_hosts"], num_frmt)
+                worksheet.write(row, col + 0, "", c_frmt)  # A
+                worksheet.write(row, col + 1, "", c_frmt)  # B
+                worksheet.write(row, col + 2, subnet["cidr"], c_frmt)  # C
+                worksheet.write(row, col + 3, subnet["net_addr"], c_frmt)  # D
+                worksheet.write(row, col + 4, f'/{subnet["prefix_len"]}', c_frmt)  # E
+                worksheet.write(row, col + 5, subnet["broadcast_addr"], c_frmt)  # F
+                worksheet.write(row, col + 6, subnet["range"], c_frmt)  # G
+                worksheet.write(row, col + 7, "", c_frmt)  # H
+                worksheet.write(row, col + 8, subnet["gateway"], c_frmt)  # I
+                worksheet.write(row, col + 9, subnet["netmask"], c_frmt)  # J
+                worksheet.write(row, col + 10, subnet["wildcard"], c_frmt)  # K
+                worksheet.write_number(
+                    row, col + 11, subnet["num_hosts"], num_frmt
+                )  # L
                 # Jump to next row
                 row += 1
 
         except TypeError as e:
+            raise SystemExit(colored(f"export_subnets.py: {e}", "red"))
+        except KeyError as e:
             raise SystemExit(colored(f"export_subnets.py: {e}", "red"))
     cprint(f"\nPlease check {excel_fname} in the PWD.\n", "green")
