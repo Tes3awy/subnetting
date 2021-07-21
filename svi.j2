@@ -1,18 +1,21 @@
-!Configuration Built on {{ now().replace(microsecond=0) }}
+!Configuration Built on {{ now }}
 
 configure terminal
 !
 {% for vlan in vlans %}
 vlan {{ vlan.id }}
- name {{ vlan.name|replace(" ","_") }}
+ name {{ vlan.name|replace(" ","_")|upper }}
 exit
 !
 {% endfor %}
 {% for vlan in vlans %}
 interface vlan {{ vlan.id }}
  ip address {{ vlan.ipaddr }} {{ vlan.mask }}
- description *** {{ vlan.name }} ***
+ description *** {{ vlan.name|upper }} ***
  no shutdown
 exit
 !
 {% endfor %}
+end
+!
+!copy running-config startup-config !Uncomment first
