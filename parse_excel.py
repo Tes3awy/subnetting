@@ -37,7 +37,7 @@ if not args.file.endswith(".xlsx"):
 if not os.path.isfile(args.file):
     raise SystemExit(colored(f"{args.file} does not exist!", "red"))
 
-svi_generator(args.file)
+svi_generator(args.file)  # Execute the svi_generator
 
 cprint(
     f'\nCreated {args.file.replace(".xlsx", "")}-svi-template.txt successfully.',

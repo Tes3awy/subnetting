@@ -18,6 +18,8 @@ def subnetting(input_subnets: List[List], gateway: int) -> List[Dict]:
         SystemExit: AddressValueError
         SystemExit: NetmaskValueError
         SystemExit: TypeError
+        SystemExit: ValueError
+        SystemExit: IndexError
 
     Returns:
         List[Dict]: Networks details

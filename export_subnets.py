@@ -61,7 +61,7 @@ def export_subnets(
 
         # Create a header line row
         for cell, value in header_line.items():
-            worksheet.write_string(cell, value, header_line_frmt)
+            worksheet.write_string(cell, value, cell_format=header_line_frmt)
 
         # Generic cell format
         cell_frmt = workbook.add_format(
@@ -74,7 +74,7 @@ def export_subnets(
 
         # Format cell containing number
         num_frmt = workbook.add_format(
-            {
+            properties={
                 "border": True,
                 "align": "center",
                 "valign": "vcenter",

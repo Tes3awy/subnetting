@@ -5,7 +5,7 @@ from typing import AnyStr, List
 
 
 def read_subnets(file_path: AnyStr = "subnets.csv") -> List[List]:
-    """Read CSV subnets file
+    """Reads CSV subnets file
 
     Args:
         file_path (AnyStr, optional): Path to subnets CSV file. Defaults to "subnets.csv".
@@ -13,6 +13,7 @@ def read_subnets(file_path: AnyStr = "subnets.csv") -> List[List]:
     Returns:
         List[List]: Subnets in CIDR notation representation
     """
+
     # Define an empty list to hold all subnets
     subnets = []
 
