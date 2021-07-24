@@ -6,14 +6,16 @@ from typing import AnyStr
 
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
-from numpy import nan
+from termcolor import cprint
 
 
 def svi_generator(excel_file: AnyStr) -> None:
     """Generates an SVI configuration template
 
-    Args:
-        excel_file (AnyStr): Path to the Excel file
+    Parameters
+    ----------
+    excel_file : AnyStr
+        Name of an Excel file
     """
 
     # Handle Jinja template
@@ -29,23 +31,27 @@ def svi_generator(excel_file: AnyStr) -> None:
     data = pd.read_excel(
         io=os.path.join("./", excel_file), sheet_name=0, usecols="A:B,H:J"
     )
-    df = pd.DataFrame(data=data)
 
-    # Create a vlans List[Dict] from columns
-    vlans = df.rename(
-        columns={
-            "VLAN ID": "id",
-            "VLAN Name": "name",
-            "Gateway": "ipaddr",
-            "Subnet Mask": "mask",
-            "IP Helper Address": "helper_addr",
-        }
-    ).to_dict(orient="records")
+    vlans = (
+        pd.DataFrame(data=data)
+        .rename(
+            columns={
+                "VLAN ID": "id",
+                "VLAN Name": "name",
+                "Gateway": "ip",
+                "Subnet Mask": "mask",
+                "IP Helper Address": "helper_addr",
+            }
+        )
+        .to_dict(orient="records")
+    )
 
     # Render the templpate
     svi_cfg = template.render(vlans=vlans)
 
     # Export the template result to a text file
-    cfg_fname = f'{excel_file.replace(".xlsx", "")}_svi_template.txt'
+    cfg_fname = f'{excel_file.replace(".xlsx", "")}_svi.txt'
     with open(file=cfg_fname, mode="w", encoding="utf-8") as cfg_file:
-        cfg_file.write(svi_cfg.lstrip())
+        cfg_file.write(svi_cfg)
+
+    cprint(text=f"\nCreated {cfg_fname} successfully.", color="green")

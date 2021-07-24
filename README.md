@@ -76,40 +76,35 @@ $ pip install -r requirements.txt --user
 path_to\subnetting> python main.py
 ```
 
-**macOS or Linux**
+**macOS or Unix**
 
 ```bash
 $ python3 main.py
 ```
 
-You will be prompted to enter the name of the CSV file containing input subnets, the gateway IP address, a name for the Excel file to be created, and the name of the sheet within the Excel file. _(All inputs have default values)_.
+You will be prompted to enter the name of the CSV file containing input subnets, the gateway, a name for the Excel file to be created. _(All inputs have default values)_.
 
 > A `subnets.csv` file can be found in the repo. This file is an entry point to get started using this program. It's prepopulated with three different subnets. _(Class A, B, and C)_.
 
 ```bash
-- CSV file w/ extension? [Defaults to subnets.csv]:
-- The gateway, first or last IP Address? [0/1] [Defaults to 0]:
-- Excel file w/o extension? [Defaults to IP-Schema]: Test-Schema
-- Worksheet name? [Defaults to IP Schema Worksheet]: Test Worksheet
+- CSV file [subnets.csv]:
+- The gateway, first or last IP Address [0/1] [0]:
+- Excel file to create [New-Schema.xlsx]:
 ```
-
-> - Abbreviations: <br /> - **w/: With** <br /> - **w/o: Without**
 
 Voila :sparkles: You have an Excel file that includes all required data about each subnet.
 
 ```bash
-Please check Test-Schema_<TODAYS_DATE>.xlsx in current working directory.
+Please check New-Schema_<TODAYS_DATE>.xlsx in current working directory.
 ```
 
 > **Default behaviors:**
 
-> 1. CIDR notation with no prefix length will be handled as /32. <br /> - For example, if you enter `10.0.0.0` without a prefix length in the CSV file, the script will handle it like `10.0.0.0/32`.
+> 1. CIDR notation with no prefix length will be handled as /32. <br /> - For example, if you enter `10.0.0.1` without a prefix length in the CSV file, the script will handle it like `10.0.0.1/32`.
 
 > 2. The header line **`Subnets in CIDR Notation`** within the `subnets.csv` file is automatically skipped. So, there is no need to manually remove it.
 
-> 3. Gateway input accepts 0 or 1 **ONLY** [Defaults to 0]. 0 picks the first IP address of the subnet, while 1 picks the last IP address.
-
-> 4. Microsoft Excel does not allow worksheet name longer than 31 characters. Worksheet names longer than 31 chars will be truncated.
+> 3. The gateway input accepts 0 or 1 **ONLY** [Defaults to 0]. 0 picks the first IP address of the subnet, while 1 picks the last IP address.
 
 ---
 
@@ -119,10 +114,6 @@ Finally, if you have a L3 switch and you want to create [SVI interfaces](https:/
 
 ```bash
 $ python parse_excel.py --file <EXCEL_FILE_NAME>.xlsx
-```
-**OR**
-```
-$ python parse_excel.py -f <EXCEL_FILE_NAME>.xlsx
 ```
 
 This Python script will generate a configuration file that includes all VLANs and their SVI interfaces.
@@ -135,6 +126,7 @@ This Python script will generate a configuration file that includes all VLANs an
 
 **Terminal**
 ![Python CLI](assets/subnetting-cli.png)
+_Elapsed time is about 9 seconds in here because a CIDR notation like 10.0.0.0/8 is a little bit extensive to process._
 
 **CSV File (Input File)**
 ![CSV File](assets/subnets-csv.png)
@@ -142,7 +134,7 @@ This Python script will generate a configuration file that includes all VLANs an
 **Excel File (Output File)**
 ![Excel Preview](assets/preview.png)
 
-**python parse_excel.py --file <EXCEL_FILE_NAME>.xlsx**
+**python parse_excel.py -f <EXCEL_FILE_NAME>.xlsx**
 ![SVI CLI](assets/svi.png)
 
 **SVI Template**

@@ -1,29 +1,25 @@
 #!usr/bin/env python3
 
 import csv
-from typing import AnyStr, List
+from typing import AnyStr, Dict, List
 
 
-def read_subnets(file_path: AnyStr = "subnets.csv") -> List[List]:
+def read_subnets(file_path: AnyStr = "subnets.csv") -> List[Dict[AnyStr, AnyStr]]:
     """Reads CSV subnets file
 
-    Args:
-        file_path (AnyStr, optional): Path to subnets CSV file. Defaults to "subnets.csv".
+    Parameters
+    ----------
+    file_path : AnyStr, optional
+        Name of a CSV file, by default "subnets.csv"
 
-    Returns:
-        List[List]: Subnets in CIDR notation representation
+    Returns
+    -------
+    List[Dict[AnyStr, AnyStr]]
+        Subnets in CIDR Notation
     """
-
-    # Define an empty list to hold all subnets
-    subnets = []
 
     # Read subnets CSV file
     with open(file=file_path, mode="r") as csvfile:
         next(csvfile)  # Skip header line
-        csv_data = csv.reader(
-            csvfile, delimiter="\n", dialect="excel", doublequote=True
-        )
-        for subnet in csv_data:
-            subnets.append(subnet[0])
-
-    return subnets
+        csv_data = csv.DictReader(f=csvfile, fieldnames={"cidr"})
+        return [cidr for cidr in csv_data]
