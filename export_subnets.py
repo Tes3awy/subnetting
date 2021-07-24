@@ -1,7 +1,7 @@
 #!usr/bin/env python3
 
 from datetime import date
-from typing import AnyStr, Dict, List
+from typing import AnyStr, Dict, List, Optional
 
 from termcolor import colored, cprint
 from xlsxwriter import Workbook
@@ -9,26 +9,30 @@ from xlsxwriter import Workbook
 
 def export_subnets(
     subnets: List[Dict],
-    workbook_name: AnyStr = "IP-Schema",
-    worksheet_name: AnyStr = "IP Schema Worksheet",
+    workbook_name: Optional[AnyStr] = "New-Schema.xlsx",
 ):
-    """Export an Excel file of entered subnets
+    """Exports an Excel file of subnetting data
 
-    Args:
-        subnets (List[Dict]): Processed subnets
-        workbook_name (AnyStr, optional): Name of the Excel file. Defaults to "IP-Schema".
-        worksheet_name (AnyStr, optional):  Name of the sheet within the Excel file. Defaults to "IP Schema Worksheet".
+    Parameters
+    ----------
+    subnets : List[Dict]
+        List of subnets went througth subnetting
+    workbook_name : Optional[AnyStr], optional
+        Name of Workbook to create, by default "New-Schema.xlsx"
 
-    Raises:
-        SystemExit: TypeError
+    Raises
+    ------
+    SystemExit
+        TypeError, KeyError
     """
 
-    excel_fname = f"{workbook_name}_{date.today()}.xlsx"
+    wb_name, ext = workbook_name.split(".")
+    excel_fname = f"{wb_name}_{date.today()}.{ext}"
 
     # Create an Excel file
     with Workbook(filename=excel_fname) as workbook:
         # Create a sheet within the Excel file
-        worksheet = workbook.add_worksheet(name=worksheet_name)
+        worksheet = workbook.add_worksheet(name="Subnetting Results")
         # Filters
         worksheet.autofilter("A1:L1")
         # Freeze top row and 2 most left columns
@@ -51,7 +55,7 @@ def export_subnets(
         }
 
         # Header line format
-        header_line_frmt = workbook.add_format(
+        h_frmt = workbook.add_format(
             properties={
                 "bold": True,
                 "border": True,
@@ -62,15 +66,11 @@ def export_subnets(
 
         # Create a header line row
         for cell, value in header_line.items():
-            worksheet.write_string(cell, value, cell_format=header_line_frmt)
+            worksheet.write_string(cell, value, cell_format=h_frmt)
 
         # Generic cell format
         c_frmt = workbook.add_format(
-            properties={
-                "border": True,
-                "align": "center",
-                "valign": "vcenter",
-            }
+            properties={"border": True, "align": "center", "valign": "vcenter"}
         )
 
         # Format cell containing number
@@ -106,8 +106,6 @@ def export_subnets(
                 # Jump to next row
                 row += 1
 
-        except TypeError as e:
-            raise SystemExit(colored(f"export_subnets.py: {e}", "red"))
-        except KeyError as e:
-            raise SystemExit(colored(f"export_subnets.py: {e}", "red"))
-    cprint(f"\nPlease check {excel_fname} in the PWD.\n", "green")
+        except (TypeError, KeyError) as e:
+            raise SystemExit(colored(text=f"export_subnets.py: {e}", color="red"))
+    cprint(text=f"\nPlease check {excel_fname} in the PWD.\n", color="green")

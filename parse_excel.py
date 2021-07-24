@@ -1,6 +1,5 @@
 #!usr/bin/env python3
 
-import os
 from argparse import ArgumentParser
 
 from colorama import init
@@ -32,14 +31,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-if not args.file.endswith(".xlsx"):
-    raise SystemExit(colored("\nInvalid input file. The file MUST be a .xlsx", "red"))
-if not os.path.isfile(args.file):
-    raise SystemExit(colored(f"{args.file} does not exist!", "red"))
-
-svi_generator(args.file)  # Execute the svi_generator
-
-cprint(
-    f'\nCreated {args.file.replace(".xlsx", "")}-svi-template.txt successfully.',
-    "green",
-)
+try:
+    svi_generator(excel_file=args.file)
+except (FileNotFoundError, PermissionError) as e:
+    raise SystemExit(colored(text=e, color="red"))

@@ -1,9 +1,10 @@
 #!usr/bin/env python3
 
+import time
 from getpass import getuser
 
 from colorama import init
-from termcolor import colored
+from termcolor import colored, cprint
 
 from export_subnets import export_subnets
 from read_subnets import read_subnets
@@ -15,59 +16,43 @@ init(autoreset=True)
 def main():
     try:
         # CSV file
-        input_subnets = (
-            input(f"\n- CSV file w/ extension? [Defaults to subnets.csv]: ")
-            or "subnets.csv"
-        )
-        if ".csv" not in input_subnets:
-            raise SystemExit(
-                colored("Sorry! The input file MUST include .csv extension", "red")
-            )
+        input_csv = input(f"\n- CSV file [subnets.csv]: ") or "subnets.csv"
         gateway = int(
-            input("- The gateway, first or last IP Address? [0/1] [Defaults to 0]: ")
-            or "0"
+            input("- The gateway, first or last IP Address [0/1] [0]: ") or "0"
         )
         if gateway not in (0, 1):
             raise SystemExit(
-                colored(
-                    "0 and 1 are the only allowed values! 0: First IP, 1: Last IP",
-                    "red",
-                )
+                colored(text="0 and 1 are the only allowed values!", color="red")
             )
         # Excel file name
         workbook_name = (
-            input("- Excel file w/o extension? [Defaults to IP-Schema]: ")
-            or "IP-Schema"
-        )
-        if workbook_name.endswith(".xlsx"):
-            raise SystemExit(colored("Oops! Please remove the .xlsx extension", "red"))
-        # Excel sheet name
-        worksheet_name = (
-            input("- Worksheet name? [Defaults to IP Schema Worksheet]: ")
-            or "IP Schema Worksheet"
+            input("- Excel file to create [New-Schema.xlsx]: ") or "New-Schema.xlsx"
         )
 
+        start = time.perf_counter()
+
         # Read CSV file
-        subnets = read_subnets(file_path=input_subnets)
+        subnets = read_subnets(file_path=input_csv)
 
         # Do Subnetting
         network_subnets = subnetting(input_subnets=subnets, gateway=gateway)
 
         # Export subnetting results to an Excel file
-        export_subnets(
-            subnets=network_subnets,
-            workbook_name=workbook_name,
-            worksheet_name=worksheet_name[:31],
-        )
+        export_subnets(subnets=network_subnets, workbook_name=workbook_name)
+
+        end = time.perf_counter()
+
+        delta = round(end - start, 2)
+        cprint(text=f"Finished in {delta} second(s)", on_color="on_blue")
 
     except FileNotFoundError:
         raise SystemExit(
-            colored(f"main.py: {input_subnets} file does not exist!", "red")
+            colored(text=f"`{input_csv}` file does not exist!", color="red")
         )
     except KeyboardInterrupt:
-        raise SystemExit(colored(f"\nProcess interrupted by {getuser()}", "yellow"))
-
-    print("Done")
+        raise SystemExit(
+            colored(text=f"Process interrupted by {getuser()}", color="yellow")
+        )
 
 
 if __name__ == "__main__":
