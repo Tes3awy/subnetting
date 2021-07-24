@@ -4,13 +4,13 @@ configure terminal
 !
 {% for vlan in vlans %}
 vlan {{ vlan.id }}
- name {{ vlan.name|replace(" ","_")|upper }}
+ name {{ vlan.name|replace(" ","_")|upper|truncate(32, False, "") }}
 exit
 !
 {% endfor %}
 {% for vlan in vlans %}
 interface vlan {{ vlan.id }}
- ip address {{ vlan.ipaddr }} {{ vlan.mask }}
+ ip address {{ vlan.ip }} {{ vlan.mask }}
  description *** {{ vlan.name|upper }} ***
  {% if vlan.helper_addr|string != "nan" %}
  ip helper-address {{ vlan.helper_addr }}
