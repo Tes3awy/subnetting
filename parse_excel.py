@@ -3,7 +3,7 @@
 from argparse import ArgumentParser
 
 from colorama import init
-from termcolor import colored, cprint
+from termcolor import colored
 
 from svi_generator import svi_generator
 
