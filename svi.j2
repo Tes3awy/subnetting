@@ -1,4 +1,4 @@
-!Configuration Built on {{ now }}
+! Configuration Built on {{ now }}
 
 configure terminal
 !
@@ -9,12 +9,16 @@ exit
 !
 {% endfor %}
 {% for vlan in vlans %}
-interface vlan {{ vlan.id }}
+interface Vlan {{ vlan.id }}
  ip address {{ vlan.ip }} {{ vlan.mask }}
  description *** {{ vlan.name|upper }} ***
- {% if vlan.helper_addr|string != "nan" %}
+ {% if vlan.helper_addr|string != "" %}
  ip helper-address {{ vlan.helper_addr }}
  {% endif %}
+ no ip proxy-arp
+ no ip unreachable
+ no ip redirects
+ no ip route-cache
  no shutdown
 exit
 !
