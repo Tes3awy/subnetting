@@ -1,15 +1,15 @@
 #!usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 from datetime import datetime
-from typing import AnyStr
 
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
-from termcolor import cprint
+from rich import print
 
 
-def svi_generator(excel_file: AnyStr) -> None:
+def svi_generator(excel_file: str) -> None:
     """Generates an SVI configuration template
 
     Parameters
@@ -34,6 +34,8 @@ def svi_generator(excel_file: AnyStr) -> None:
 
     vlans = (
         pd.DataFrame(data=data)
+        .fillna(value="")
+        .drop_duplicates(subset=[data.columns[0]])
         .rename(
             columns={
                 "VLAN ID": "id",
@@ -51,7 +53,7 @@ def svi_generator(excel_file: AnyStr) -> None:
 
     # Export the template result to a text file
     cfg_fname = f'{excel_file.replace(".xlsx", "")}_svi.txt'
-    with open(file=cfg_fname, mode="w", encoding="utf-8") as cfg_file:
+    with open(file=cfg_fname, mode="wt", encoding="utf-8") as cfg_file:
         cfg_file.write(svi_cfg)
 
-    cprint(text=f"\nCreated {cfg_fname} successfully.", color="green")
+    print(f"\n[green]Created {cfg_fname}", end="\n\n")

@@ -1,17 +1,14 @@
 #!usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 from argparse import ArgumentParser
 
-from colorama import init
-from termcolor import colored
+from rich import print
 
 from svi_generator import svi_generator
 
-init(autoreset=True)
-
-
 parser = ArgumentParser(
-    prog="parse excel",
+    prog="parse Excel",
     usage="python parse_excel.py --file <path to an Excel file>",
     description="An Excel file that contains subnets",
     epilog="Enjoy the program! :)",
@@ -34,4 +31,4 @@ args = parser.parse_args()
 try:
     svi_generator(excel_file=args.file)
 except (FileNotFoundError, PermissionError) as e:
-    raise SystemExit(colored(text=e, color="red"))
+    raise SystemExit(print(f"[red]{e}")) from e
