@@ -9,7 +9,7 @@ from svi_generator import svi_generator
 
 parser = ArgumentParser(
     prog="parse Excel",
-    usage="python parse_excel.py --file <path to an Excel file>",
+    usage="python parse_excel.py --file path/to/excel/file",
     description="An Excel file that contains subnets",
     epilog="Enjoy the program! :)",
     allow_abbrev=True,
@@ -23,12 +23,14 @@ parser.add_argument(
     action="store",
     type=str,
     required=True,
-    help="the path to an Excel file",
+    help="Path to an Excel file",
 )
 
 args = parser.parse_args()
 
 try:
-    svi_generator(excel_file=args.file)
+    f = svi_generator(excel_file=args.file)
 except (FileNotFoundError, PermissionError) as e:
     raise SystemExit(print(f"[red]{e}")) from e
+else:
+    print(f"\n[green]Created {f.name} in cwd", end="\n\n")

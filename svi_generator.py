@@ -52,8 +52,8 @@ def svi_generator(excel_file: str) -> None:
     svi_cfg = template.render(vlans=vlans)
 
     # Export the template result to a text file
-    cfg_fname = f'{excel_file.replace(".xlsx", "")}_svi.txt'
-    with open(file=cfg_fname, mode="wt", encoding="utf-8") as cfg_file:
-        cfg_file.write(svi_cfg)
+    cfg_fname = f'{excel_file.replace(".xlsx", "")}_SVI-template.txt'
+    with open(file=cfg_fname, mode="wt+", encoding="utf-8") as f:
+        f.write(svi_cfg)
 
-    print(f"\n[green]Created {cfg_fname}", end="\n\n")
+    return f
