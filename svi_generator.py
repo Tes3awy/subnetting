@@ -6,7 +6,6 @@ from datetime import datetime
 
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
-from rich import print
 
 
 def svi_generator(excel_file: str) -> None:
